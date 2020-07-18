@@ -42,6 +42,13 @@ function plus(){
 }
 
 function minus(){
+    if (amountSubmit == null ) {
+        alert("Plz ! Submit Your Amount First ");
+        totalItems = 0;
+    }
+    else{
+
+    
     totalItems-=1;
     balanceAmount = balanceAmount + applePrice;
     totalAmount -= applePrice;
@@ -57,5 +64,6 @@ function minus(){
     document.querySelector('#balance').innerHTML=balanceAmount; 
     document.querySelector('.numOfItems').innerHTML=totalItems;
     document.querySelector('.numOfItem').innerHTML=totalItems;
+    }
 }
 
