@@ -1,69 +1,61 @@
-let totalItems = 0;
-const applePrice = 10;
-const mangoPrice = 30;
-const orangePrice = 20;
-let balanceAmount = 0;
 
-let totalAmount;
-let amountSubmit;
+let userEnteredAmount;
+let total;
 
-function submit(){
-    amountSubmit = parseInt(document.querySelector('#userAmount').value);
-    document.querySelector('#amountEntered').innerHTML = amountSubmit;
-}
-
-function plus(){
-
-    if (amountSubmit == null ) {
-        alert("Plz ! Submit Your Amount First ");
-        totalItems = 0;
+// Checks User Input Amount
+function submitAmount() { 
+    userEnteredAmount = document.getElementById('userAmount').value;
+    if(userEnteredAmount === ''){
+        alert("Plz Submit Your Amount 1st !!");
+        return false;
     }
     else{
-        totalItems+=1;
-        balanceAmount = amountSubmit - (applePrice*totalItems);
+        document.getElementById('amountEntered').innerText = userEnteredAmount; 
+        document.getElementById('balance').innerHTML = userEnteredAmount;
+        return true;
+    }
+}
 
-        totalAmount = applePrice*totalItems;
-        
-        if(balanceAmount < 0){
-            alert("Your Amount Ended!!");
-            balanceAmount=0;
-            totalItems--;
-            document.querySelector('#balance').innerHTML=balanceAmount;
-            totalAmount -= applePrice; 
+// Increasing Function
+function increaseItem(param , itemPrice){
+
+    let noOfItem = document.getElementById(param);
+    let itemsPrice = document.getElementById(itemPrice).innerHTML.replace('Rs: ' , '');
+
+    if(submitAmount() === false){
+        noOfItem.value = 0;
+    }
+    else{
+        noOfItem.value = parseInt(noOfItem.value) + 1;
+        total = document.getElementById('userTotalAmount').innerHTML = (noOfItem.value) * parseInt(itemsPrice);
+        console.log(total);
+        document.getElementById('balance').innerHTML = userEnteredAmount - total;
+        document.getElementById('numOfItem').innerHTML = noOfItem.value;
+    }
+    
+}
+
+// Decreasing Function
+function decreaseItem(param , itemPrice){
+
+    let noOfItem = document.getElementById(param);
+    let itemsPrice = document.getElementById(itemPrice).innerHTML.replace('Rs: ' , '');
+
+    if(submitAmount() === false){
+        noOfItem.value = 0;
+    }
+
+    else{
+
+        if (noOfItem.value <= 0) {
+            noOfItem.value = 0;
+            alert('Oder Can"t Be Negative');
         }
-
-        document.querySelector('.numOfItems').innerHTML=totalItems;
-        document.querySelector('.numOfItem').innerHTML=totalItems;
-        document.querySelector('#balance').innerHTML=balanceAmount;        
-        document.querySelector('#userTotalAmount').innerHTML=totalAmount;        
-    }
-    
-    
-}
-
-function minus(){
-    if (amountSubmit == null ) {
-        alert("Plz ! Submit Your Amount First ");
-        totalItems = 0;
-    }
-    else{
-
-    
-    totalItems-=1;
-    balanceAmount = balanceAmount + applePrice;
-    totalAmount -= applePrice;
-    
-    if (totalItems < 0 ) {
-        alert("Order Can't Be Zero !!! ");
-        totalItems++;
-        balanceAmount -= applePrice;
-        totalAmount += applePrice;
-    }
-    
-    document.querySelector('#userTotalAmount').innerHTML=totalAmount;
-    document.querySelector('#balance').innerHTML=balanceAmount; 
-    document.querySelector('.numOfItems').innerHTML=totalItems;
-    document.querySelector('.numOfItem').innerHTML=totalItems;
+        else{
+            noOfItem.value = parseInt(noOfItem.value) - 1;
+            total = document.getElementById('userTotalAmount').innerHTML = (noOfItem.value) * itemsPrice;
+            document.getElementById('balance').innerHTML = userEnteredAmount - total;
+            document.getElementById('numOfItem').innerHTML = noOfItem.value;
+        }
     }
 }
-
