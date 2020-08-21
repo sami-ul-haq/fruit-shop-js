@@ -31,6 +31,10 @@ function increaseItem(param , itemPrice){
         console.log(total);
         document.getElementById('balance').innerHTML = userEnteredAmount - total;
         document.getElementById('numOfItem').innerHTML = noOfItem.value;
+        if(total >= userEnteredAmount){
+            alert('Your Rupees Ended');
+            total = total - parseInt(itemsPrice);
+        }
     }
     
 }
